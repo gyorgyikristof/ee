@@ -1,0 +1,9 @@
+Számításos lap
+Felhasználó neve: Györgyi Kristsóf Gábor
+a oldal 12 m
+b oldal 8 m
+c oldal 6 m
+Kerulet: 26 m
+Terulet: 48.0 m2
+
+Kelt: Szeged,2022.01.17
