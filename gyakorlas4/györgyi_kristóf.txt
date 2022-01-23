@@ -1,0 +1,5 @@
+Adó kalkulátor\Vásárló neve: Györgyi Kristóf Gábor
+Ingatlan értéke: 1000000
+Fizetendõ adó: 150000.0
+
+Kelt: Szeged, 2022.01.19
