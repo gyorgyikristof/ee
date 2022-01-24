@@ -1,0 +1,23 @@
+body {
+    background-image: linear-gradient(darkgoldenrod, #fff);
+    
+}
+
+.focim {
+    text-align: center;
+    background-color:lightblue;
+    font-weight: bold;
+}
+
+.alcim {
+    text-align: center;
+    background-color: darkseagreen;
+}
+
+p {
+    text-align: justify;
+    text-indent: 15px;
+    line-height: 1.5;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
