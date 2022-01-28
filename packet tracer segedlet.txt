@@ -1,0 +1,112 @@
+Packet Tracer segédlet
+    1. Eszközök kirakása az ábra alapján
+        a. routerek és switchek a mappából
+        b. végberendezések máshonnan
+        c. Wifi router WRT300N
+    2. Eszközök összekötése (options - preferences - show labels)
+        a. Switch routerrel egyeneskötésű kábel
+        b. Router és Wifi router között keresztkötésű kábel kell
+        c. Két router között serial kábel, serialport
+        d. Switch és végberendezések között egyeneskötésű kábel kell, FastEthernet
+    3. IP címzés beállítása (táblázat)
+        a. ha config felület nincs letiltva (routereknél)
+            I. routereknél három ip cím lesz, az egyszerűbb a két router közötti, a kettő hasonló pedig a router másik két ága felé, a switchek felé fog menni.
+            II. rákattintunk a routerre, FastEthernet0/0 és FastEthernet0/1-nél beállítjuk az IP Addrest és a Subnet Maskot, mindig bepipáljuk a Port Statust!!!
+            III. Serial0/0 is
+        b. eszközök elnevezése, figyelve a pontos egyezésre, display nevek + host nevek, display név kint, ha van Config akkor először kint érdemes beírni, aztán a hostnevet meg másoljuk
+        c. Switchek ip cím beállítása
+            I. belekatt a switchbe
+            II. CLI fül
+            III. enable
+            IV. conf t
+            V. interface vlan1
+            VI. ip address <ip cím> <maszk>
+            VII. no shutdown ((port felkapcsolása))
+            VIII. alapértelmezett átjáró beállítása, egy szintel kintebb
+                - exit
+            IX. ip default-gateway <átjáró ip címe>
+        d. végberendezések ip cím kiosztása, katt az eszközre, desktop, ip config, és ott megadni őket
+        e. ha config felület le van tiltva (routereknél)
+            I. CLI
+            II enable, conf t
+            III. interface fa0/0
+            IV. ip address <ip cím> <maszk>
+            V. no shutdown
+            VI. interface fa0/1
+            VII. ip address <ip cím> <maszk>
+            VIII. no shutdown
+            IX. int s0/0/0 (két router közötti hálózat)
+            X. ip address <ip cím>
+            XI. no shutdown
+    4. Wifi router beállítása
+        a. 2 darab ip cím, alapértelmezett átjáróval rendelkező lesz az internetes ip cím
+        b. grafikus felületbe belépünk
+        c. statikus ip cím kiválasztása, ha azt kéri a feladat
+        d. itt ip címek megadása
+        e. lentebb görgetve a belső ip cím kell, a network setupnál
+        f. save settings a lap alján
+    5. konfiguráción megjelenő név átírása
+        a. Switch megnyitása, config fül, és display név átmásolása a hostname-hez is
+        b. cli-ben ugyanez: 
+            I. enable
+            II. conf t 
+            III. hostname <az eszkoz neve>
+    6. forgalomirányítókon napi üzenet beállítása:
+        a. routerbe katt - CLI fül
+        b. (config) szinten
+        c. banner motd "üzenet"
+    7. ha megjegyzés kell akkor (ha soros interfészen kéri config-if azaz interface serial0/0/0 )
+        (config-if) description <megjegyzés>
+    8. bejelentkezés levédése, vagy felhasználó létrehozása
+        a. (config) line console 0
+        b. (config-line) password (jelszo)
+        c. (config-line) login
+        d. (config-line) exit
+        e. (config) username <felhasznalonev> password <jelszo>
+        f. (config) line vty 0 15
+        g. (config-line) login local
+    9. rendszergazda számára felhasználó lehet ez kell, ha csak egy routeren kell beállítani 
+        a. (config) username <felhasználónév> password <jelszo>
+        b. (config) line vty 0 15
+        c. (config-line) login local
+    10. OSPF beállítása routeren
+        a. (config) router ospf <folyamatazonosito>
+        b. (config-router) network <ip cím> <white card maszk(ahol 255 ott 0, ahol 0 255, 255-ből ki kell vonni a meglévő maszkot)> area 0
+            network <ip address> <whitecard subnet mask> area 0
+        c. forgalomirányításban nem részt vevő eszközöket beállítása passzívnak
+            (config-router) passive-interface 0/0
+            (config-router) passive-interface 0/1
+    11. DHCP beállítása
+            (config)ip dhcp pool <pool neve>
+            (dhcp-config) exit
+            (config)ip dhcp excluded-address <kezdő ip cím> <végső ip cím>
+            (config)ip dhcp pool <pool neve>
+            (dhcp-config)network <ip cím> <maszk>    (hálózat megadása) azonosító címet kell megadni
+            (dhcp-config)default-router <alapértelmezett átjáró címe>   alapértelmezett átjáró megadása
+            (dhcp-config)dns-server <ip cím>
+
+    12. WIFI router beállítása
+        a. GUI
+        b. Network setup, DHCP Server Settings Enabled
+        c. Start ip cím megadása
+        d. number of clients megadása
+        f. dns szerver cím megadása
+        e. Save lap alján
+        
+        Wireless fül
+            a. SSID megadása
+            b. ha kéri SSID hirdetés tiltását SSID broadcast Enabledről disabledre
+            c. Security mode WPA2 Personal
+            d. Passphrase-hez beírni a kért jelszót,
+            e. Encryption AES
+
+            f. vezetéknélküli kliens rácsatlakoztatása
+            g. rákatt a végberendezésre, config, ott Wireless0
+            h. SSID beírása, odafigyelve hogy jó legyen
+            i. WPA2-PSK kiválasztása PSK Pass Phrasehez pedig beírni a jelszót
+
+            beállítások mentése - eszközre katt  config fülön NVRAM és Save gomb
+            vagy CLI:
+                priveligezált mód(#): és wr 
+
+mentés
